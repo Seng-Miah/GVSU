@@ -13,6 +13,7 @@ Original file is located at
 import pandas as pd
 import geopandas as gpd
 from dash import Dash, dcc, html
+from dash.dependencies import Input, Output
 import plotly.graph_objects as go
 
 # =====================================================
