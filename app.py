@@ -172,8 +172,8 @@ def create_mi_map():
 # CALLBACK
 # =====================================================
 @app.callback(
-    [dcc.Output('us_map', 'figure'),
-     dcc.Output('mi_map', 'figure')],
+    [Output('us_map', 'figure'),
+     Output('mi_map', 'figure')],
     []
 )
 def update_maps():
