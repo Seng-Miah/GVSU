@@ -30,7 +30,7 @@ out_us_df = df[df['stfip'].isna()].copy()
 
 # Clean FIPS
 us_df['stfip'] = us_df['stfip'].astype(int).astype(str).str.zfill(2)
-us_df['GEOID'] = us_df['GEOID'].astype(str).str.zfill(5)
+us_df['fips'] = us_df['fips'].astype(str).str.zfill(5)
 
 # =====================================================
 # 🔥 STATE AGGREGATION (MAP 1)
@@ -65,9 +65,9 @@ mi_counties['GEOID'] = mi_counties['STATEFP'] + mi_counties['COUNTYFP']
 mi_counties = mi_counties.to_crs(epsg=4326)
 
 # Aggregate county-level
-county_df = us_df.groupby('GEOID', as_index=False)['Graduated'].sum()
+county_df = us_df.groupby('fips', as_index=False)['Graduated'].sum()
 
-mi_map = mi_counties.merge(county_df, on='GEOID', how='left')
+mi_map = mi_counties.merge(county_df, left_on='GEOID', right_on='fips', how='left')
 mi_map['Graduated'] = mi_map['Graduated'].fillna(0)
 
 mi_geojson = mi_map.__geo_interface__
